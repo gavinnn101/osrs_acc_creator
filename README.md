@@ -5,6 +5,8 @@ Uses requests to create Old School Runescape accounts with 2captcha/anticaptcha 
 
 Tutorial Video: https://www.youtube.com/watch?v=siFrapgOrIA
 
+Discord: GaviNNN#3281
+
 _____________________________________________________________________
 Requirements:
 
