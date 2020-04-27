@@ -10,23 +10,27 @@ Requirements:
 
 Download python 3.x from https://www.python.org/downloads/
 
-Make sure python is added to PATH
+Make sure python is added to PATH during installation!(Bottom left corner checkbox)
 
 After Python is installed, open cmd/powershell and run: 
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+python get-pip.py
 
 pip install requests
 
 pip install requests[socks]
 
+pip install python-anticaptcha
+
 HOW TO USE:
 
-1. Put acc_creator.py, my_utilities.py, proxy_list.txt, created_accs.txt, and settings.ini in the same folder.
+1. Download the git repo folder with all of the files and place the folder on your desktop
 
 2. Open, edit, and save settings.ini to fit your use case.
   
-  2.1. YOU MUST add a 2captcha API key to the settings file (2captcha.com -> add $3 to your account -> paste API key from your account page to the settings file and save.)
-  
-  2.2. If you get an error when running acc_creator 'list index out of range', you didn't add a valid 2captcha api key to settings
+  2.1. YOU MUST add a 2captcha or AntiCaptcha API key to the settings file (2captcha.com or anticaptcha.com -> add $3-10 to your account -> paste API key from your account page to the settings file and save.)
 
 3. Add your list of proxies to proxy_list.txt if applicable.
 
