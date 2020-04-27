@@ -1,7 +1,7 @@
 # osrs_acc_creator
 Account creator personal project for the game Old School Runescape
 
-Uses requests to create Old School Runescape accounts with 2captcha integration to bypass Recaptcha as well as proxy support.
+Uses requests to create Old School Runescape accounts with 2captcha/anticaptcha integration to bypass Recaptcha, proxy support, and Tribot and OSBot CLI integration.
 
 Tutorial Video: https://www.youtube.com/watch?v=siFrapgOrIA
 
