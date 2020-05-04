@@ -8,6 +8,7 @@ Tutorial Video: https://www.youtube.com/watch?v=siFrapgOrIA
 Discord: GaviNNN#3281
 
 twocaptcha.com referral: https://2captcha.com?from=8817486
+
 anticaptcha.com referral: http://getcaptchasolution.com/njbmecwjpo
 
 _____________________________________________________________________
