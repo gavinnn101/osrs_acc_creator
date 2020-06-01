@@ -24,11 +24,9 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
 python get-pip.py
 
-pip install requests
+Change your directory in cmd to the account creator folder and then run:
 
-pip install requests[socks]
-
-pip install python-anticaptcha
+pip3 install -r requirements.txt
 
 HOW TO USE:
 
