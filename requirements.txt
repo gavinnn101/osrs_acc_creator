@@ -1,0 +1,3 @@
+python-anticaptcha
+requests
+requests[socks]
