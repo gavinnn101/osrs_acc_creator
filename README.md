@@ -1,47 +1,34 @@
-# osrs_acc_creator
-Account creator personal project for the game Old School Runescape
+# OSRS Account Creator
 
-Uses requests to create Old School Runescape accounts with 2captcha/anticaptcha integration to bypass Recaptcha, proxy support, and Tribot and OSBot CLI integration.
+Gavin's OSRS Account Creator is a python script that can be run to create Runescape accounts with features such custom usernames/passwords, anti/twocaptcha support, proxy support, OSBot/Tribot CLI integration, and more. 
 
-Tutorial Video: https://www.youtube.com/watch?v=siFrapgOrIA
-
-Discord Server: https://discord.gg/SjVjQvm
-
-Discord: GaviNNN#3281
+Support, requests, etc can be found on discord: https://discord.gg/SjVjQvm
 
 twocaptcha.com referral: https://2captcha.com?from=8817486
 
 anticaptcha.com referral: http://getcaptchasolution.com/njbmecwjpo
 
-_____________________________________________________________________
-Requirements:
 
-Download python 3.x from https://www.python.org/downloads/
+## Installation
 
-Make sure python is added to PATH during installation!(Bottom left corner checkbox)
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
-After Python is installed, open cmd/powershell and run: 
-
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-
-python get-pip.py
-
-Change your directory in cmd to the account creator folder and then run:
-
+```bash
 pip3 install -r requirements.txt
+```
 
-HOW TO USE:
+## Usage
 
-1. Download the git repo folder with all of the files and place the folder on your desktop
+Edit the osrs_acc_creator_master/settings/settings.ini as appropriate. Then navigate to cmd prompt/terminal and run:
 
-2. Open, edit, and save settings.ini to fit your use case.
-  
-  2.1. YOU MUST add a 2captcha or AntiCaptcha API key to the settings file (2captcha.com or anticaptcha.com -> add $3-10 to your account -> paste API key from your account page to the settings file and save.)
+```bash
+cd ~/Desktop/osrs_acc_creator_master
+python acc_creator.py
+```
 
-3. Add your list of proxies to proxy_list.txt if applicable.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-4. Open the folder with the files and shift+right click in the folder and click "Open powershell here"
-  
-  4.1. Run the command: python acc_creator.py
 
-5. List of created accounts will save to created_accs.txt
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
