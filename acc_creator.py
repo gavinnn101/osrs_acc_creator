@@ -1,11 +1,12 @@
 """Creates accounts based on settings.ini using our logic modules"""
 #!/usr/bin/env python3
 
+import json
+import concurrent.futures
 import random
 import string
 import sys
 from socket import error as socket_error
-import requests
 try:
     from modules.helper_modules.utility import (get_index,
     get_user_settings, get_site_settings, get_tribot_settings, get_osbot_settings)
@@ -13,14 +14,15 @@ try:
     from modules.captcha_solvers.anticaptcha import anticaptcha_solver
     from modules.bot_client_cli.tribot_cli import use_tribot
     from modules.bot_client_cli.osbot_cli import use_osbot
+    import requests
 except ImportError as error:
     print(error)
 
 
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5)'
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4)'
                   ' AppleWebKit/537.36 (KHTML, like Gecko)'
-                  ' Chrome/58.0.3029.110 Safari/537.36'}
+                  ' Chrome/81.0.4044.138 Safari/537.36'}
 try:
     PROXY_LIST = open("settings/proxy_list.txt", "r")
 except FileNotFoundError:
@@ -104,7 +106,6 @@ def get_payload(captcha) -> dict:
                          for n in range(6)]) + '@gmail.com'
     else:  # We're using a custom prefix for our usernames
         email = email + str(random.randint(1000, 9999)) + '@gmail.com'
-
     if not password:
         password = email[:-10] + str(random.randint(1, 1000))
 
@@ -141,10 +142,13 @@ def check_account(submit):
         error_text = error_text[:get_index(error_text, '<', 1)]
         print(error_text)
         return False
+    elif 'Sorry, there was an error processing your request.' in submit_page:
+        print("The account creation failed due to a temporary IP block. "
+              "Rest the IP, switch proxies, etc.")
+        return False
     else:
         print("Account was not created successfully "
               "and we weren't able to catch the error.. ")
-        print("\nThis is very likely to be an unhandled captcha solve issue.")
         return False
 
 
@@ -184,12 +188,11 @@ def save_account(payload, proxy=None):
               f" with the following details: {formatted_payload}:{proxy}")
 
 
-def create_account():
+def create_account(proxy=None):
     """Creates our account and returns the registration info"""
     captcha_service = get_user_settings()[2]
     requests.session()
     if USE_PROXIES:
-        proxy = get_proxy()
         if access_page(proxy):
             if captcha_service == 1:
                 payload = get_payload(twocaptcha_solver())
@@ -203,10 +206,6 @@ def create_account():
                         use_tribot(payload['email1'], payload['password1'], proxy)
                     elif OSBOT_ACTIVE:
                         use_osbot(payload['email1'], payload['password1'], proxy)
-                else:
-                    print("We submitted our account creation request "
-                          "but didn't get to the creation successful page.")
-                    print(submit.status_code)
             else:
                 print(f"Creation failed. Error code {submit.status_code}")
     else:  # Not using proxies so we'll create the account(s) with our real IP
@@ -223,10 +222,6 @@ def create_account():
                         use_tribot(payload['email1'], payload['password1'])
                     elif OSBOT_ACTIVE:
                         use_osbot(payload['email1'], payload['password1'])
-                else:
-                    print("We submitted our account creation request "
-                          "but didn't get to the creation successful page.")
-                    print(submit.status_code)
             else:
                 print(f"Creation failed. Error code {submit.status_code}")
 
@@ -239,7 +234,7 @@ def main():
         print(f"Will we use proxies?: {USE_PROXIES}")
         print(f"Will we use Tribot CLI?: {TRIBOT_ACTIVE}")
         print(f"Will we use OSBot CLI?: {OSBOT_ACTIVE}")
-        print("\nWant the version with multithreading support to create and load many accounts at a time? You can purchase it from Gavin on discord - GaviNNN#3281")
+        print("\nWant the version with multithreading support to create and load many accounts at a time? You can purchase it from Gavin on discord. Join the discord - https://discord.gg/SjVjQvm")
 
         while counter < NUM_OF_ACCS:
             counter += 1
