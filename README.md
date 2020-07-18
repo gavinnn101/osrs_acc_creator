@@ -11,7 +11,7 @@ anticaptcha.com referral: http://getcaptchasolution.com/njbmecwjpo
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install OSRS Account Creator.
 
 ```bash
 pip3 install -r requirements.txt
