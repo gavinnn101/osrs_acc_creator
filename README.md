@@ -5,7 +5,7 @@ Uses requests to create Old School Runescape accounts with 2captcha/anticaptcha 
 
 Tutorial Video: https://www.youtube.com/watch?v=siFrapgOrIA
 
-Discord Server: https://discord.gg/zfxpn8
+Discord Server: https://discord.gg/SjVjQvm
 
 Discord: GaviNNN#3281
 
