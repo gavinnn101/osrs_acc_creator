@@ -226,7 +226,7 @@ def main():
         print(f"Will we use proxies?: {USE_PROXIES}")
         print(f"Will we use Tribot CLI?: {TRIBOT_ACTIVE}")
         print(f"Will we use OSBot CLI?: {OSBOT_ACTIVE}")
-        print("\nWant the version with multithreading support to create and load many accounts at a time? You can purchase it from Gavin on discord. Join the discord - https://discord.gg/SjVjQvm")
+        print("\nWant the multi-threaded version for fast account creation or need support for a problem? Join the discord - https://discord.gg/SjVjQvm")
 
         while counter < NUM_OF_ACCS:
             counter += 1
