@@ -129,7 +129,8 @@ dmypy.json
 .pyre/
 
 # User defined files
-
+settings/
+created_accs.txt
 
 # .git
 .git
