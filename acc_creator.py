@@ -185,6 +185,7 @@ def create_account(proxy=None):
     captcha_service = get_user_settings()[2]
     requests.session()
     if USE_PROXIES:
+        proxy = get_proxy()
         if access_page(proxy):
             if captcha_service == 1:
                 payload = get_payload(twocaptcha_solver())
