@@ -8,7 +8,7 @@ import subprocess
 import getpass
 try:
     from modules.helper_modules.utility import (get_user_settings, get_index,
-    get_tribot_settings)
+    read_proxy, get_tribot_settings)
 except ImportError as error:
     print(error)
 
@@ -33,28 +33,6 @@ def find_tribot():
     return client
 
 
-def format_current_proxy(proxy):
-    """Formats and returns our current proxy for CLI use"""
-    # Example returned proxy:
-    # {'https': 'socks5://username:password@127.0.0.1:24613\n'}
-    proxy = str(proxy)
-    proxy_auth_type = get_user_settings()[1]
-    # Formatting shenanigans to get the strings we need for CLI usage
-    if proxy_auth_type == 1: # Formatting based on user:pass@proxy:port
-        proxy_username = proxy[get_index(proxy, '/', 2)+1:get_index(proxy, ':', 3)]
-        proxy_password = proxy[get_index(proxy, ':', 3)+1:get_index(proxy, '@', 1)]
-        proxy_host = proxy[get_index(proxy, '@', 1)+1:get_index(proxy, ':', 4)]
-        proxy_port = proxy[get_index(proxy, ':', 4)+1:get_index(proxy, "'", 4)-2]
-
-        return proxy_username, proxy_password, proxy_host, proxy_port
-
-    else: # Formatting based on proxy:port (IP authentication)
-        proxy_host = proxy[get_index(proxy, '/', 2)+1:get_index(proxy, ':', 3)]
-        proxy_port = proxy[get_index(proxy, ':', 3)+1:-4]
-
-        return proxy_host, proxy_port
-
-
 def use_tribot(charname, charpass, proxy=None):
     """Gets settings and runs Tribot CLI"""
     # Storing all of our settings while we're in the correct directory
@@ -66,14 +44,9 @@ def use_tribot(charname, charpass, proxy=None):
     script_args = get_tribot_settings()[4]
 
     if use_proxies:
-        if proxy_auth_type == 1:
-            proxy_username = format_current_proxy(proxy)[0]
-            proxy_password = format_current_proxy(proxy)[1]
-            proxy_host = format_current_proxy(proxy)[2]
-            proxy_port = format_current_proxy(proxy)[3]
-        else:
-            proxy_host = format_current_proxy(proxy)[0]
-            proxy_port = format_current_proxy(proxy)[1]
+        proxy_auth_type = get_user_settings()[1]
+        proxy_username, proxy_password, proxy_ip, proxy_port = read_proxy(proxy, proxy_auth_type)
+
 
     original_path = os.getcwd()
     client = find_tribot()
@@ -86,7 +59,7 @@ def use_tribot(charname, charpass, proxy=None):
                        f'--charusername "{charname}" --charpassword "{charpass}" '
                        f'--script "{tribot_script}" --scriptargs "{script_args} " '
                        f'--charworld "433" '
-                       f'--proxyhost "{proxy_host}" '
+                       f'--proxyhost "{proxy_ip}" '
                        f'--proxyport "{proxy_port}" '
                        f'--proxyusername "{proxy_username}" '
                        f'--proxypassword "{proxy_password}" ')
@@ -96,7 +69,7 @@ def use_tribot(charname, charpass, proxy=None):
                        f'--charusername "{charname}" --charpassword "{charpass}" '
                        f'--script "{tribot_script}" --scriptargs "{script_args} " '
                        f'--charworld "433" '
-                       f'--proxyhost "{proxy_host}" '
+                       f'--proxyhost "{proxy_ip}" '
                        f'--proxyport "{proxy_port}" ')
     else: # Not using proxies
         cli_cmd = (f'java -jar {client} '
