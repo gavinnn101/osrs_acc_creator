@@ -1,14 +1,12 @@
 """Creates accounts based on settings.ini using our logic modules"""
 #!/usr/bin/env python3
 
-import json
-import concurrent.futures
 import random
 import string
 import sys
 from socket import error as socket_error
 try:
-    from modules.helper_modules.utility import (get_index,
+    from modules.helper_modules.utility import (get_index, read_proxy,
     get_user_settings, get_site_settings, get_tribot_settings, get_osbot_settings)
     from modules.captcha_solvers.twocaptcha import twocaptcha_solver
     from modules.captcha_solvers.anticaptcha import anticaptcha_solver
@@ -107,7 +105,7 @@ def get_payload(captcha) -> dict:
     else:  # We're using a custom prefix for our usernames
         email = email + str(random.randint(1000, 9999)) + '@gmail.com'
     if not password:
-        password = email[:-10] + str(random.randint(1, 1000))
+        password = email[:-10] + str(random.randint(1, 9999))
 
     # Generate random birthday for the account
     day = str(random.randint(1, 25))
@@ -157,15 +155,9 @@ def save_account(payload, proxy=None):
     """Save the needed account information to created_accs.txt"""
     if USE_PROXIES:
         proxy_auth_type = get_user_settings()[1]
-        if proxy_auth_type == 1: # Formatting based on user:pass auth
-            # Formatting our proxy string to only save the IP
-            proxy = str(proxy)
-            proxy = proxy[proxy.find('@')+1:]
-            proxy = proxy[:proxy.find(':')]
-        else: # Formatting based on IP authentication
-            proxy = str(proxy)
-            proxy = proxy[proxy.find('/')+2:]
-            proxy = proxy[:proxy.find("'")]
+        proxy_ip = read_proxy(proxy, proxy_auth_type)[2]
+        proxy = proxy_ip
+
     else:
         proxy = get_ip()
 
