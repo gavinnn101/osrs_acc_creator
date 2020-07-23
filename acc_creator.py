@@ -147,6 +147,8 @@ def check_account(submit):
     else:
         print("Account was not created successfully "
               "and we weren't able to catch the error.. ")
+        print("")
+        print(submit_page)
         return False
 
 
