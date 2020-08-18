@@ -1,5 +1,7 @@
 # OSRS Account Creator
 
+CURRENTLY NOT WORKING DUE TO JAGEX IMPLEMENTING INCAPSULA PROTECTION TO THEIR SITE. STAY TUNED FOR AN EVENTUAL UPDATE OR FORK/FIX IT YOURSELF. FEEL FREE TO PULL REQUEST A FIX IF YOU WANT.
+
 Gavin's OSRS Account Creator is a python script that can be run to create Runescape accounts with features such custom usernames/passwords, anti/twocaptcha support, proxy support, OSBot/Tribot CLI integration, and more. 
 
 Support, requests, etc can be found on discord: https://discord.gg/SjVjQvm
